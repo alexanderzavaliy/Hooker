@@ -1,0 +1,10 @@
+C:\Projects\WindowsFormsApplication3\WindowsFormsApplication3\bin\Debug\Gma.UserActivityMonitor.dll
+C:\Projects\WindowsFormsApplication3\WindowsFormsApplication3\bin\Debug\Gma.UserActivityMonitor.pdb
+C:\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\Debug\WindowsFormsApplication3.csproj.GenerateResource.Cache
+C:\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\Debug\WindowsFormsApplication3.csprojResolveAssemblyReference.cache
+C:\Projects\WindowsFormsApplication3\WindowsFormsApplication3\bin\Debug\Hooker.exe.config
+C:\Projects\WindowsFormsApplication3\WindowsFormsApplication3\bin\Debug\Hooker.exe
+C:\Projects\WindowsFormsApplication3\WindowsFormsApplication3\bin\Debug\Hooker.pdb
+C:\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\Debug\Hooker.Properties.Resources.resources
+C:\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\Debug\Hooker.exe
+C:\Projects\WindowsFormsApplication3\WindowsFormsApplication3\obj\Debug\Hooker.pdb
