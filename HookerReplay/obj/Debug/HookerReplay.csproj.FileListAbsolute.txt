@@ -1,0 +1,8 @@
+E:\GitRepositories\Hooker\HookerReplay\bin\Debug\HookerReplay.exe.config
+E:\GitRepositories\Hooker\HookerReplay\obj\Debug\HookerReplay.Properties.Resources.resources
+E:\GitRepositories\Hooker\HookerReplay\obj\Debug\HookerReplay.csproj.GenerateResource.Cache
+E:\GitRepositories\Hooker\HookerReplay\bin\Debug\HookerReplay.exe
+E:\GitRepositories\Hooker\HookerReplay\bin\Debug\HookerReplay.pdb
+E:\GitRepositories\Hooker\HookerReplay\obj\Debug\HookerReplay.exe
+E:\GitRepositories\Hooker\HookerReplay\obj\Debug\HookerReplay.pdb
+E:\GitRepositories\Hooker\HookerReplay\obj\Debug\HookerReplay.csprojResolveAssemblyReference.cache

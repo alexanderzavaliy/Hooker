@@ -26,10 +26,6 @@ namespace Hooker
         private const string KEY_DOWN = "KeyDown";
         private const string KEY_UP = "KeyUp";
 
-        private const int THINK_TIME_BETWEEN_MOUSE_MOVES = 2000;
-        private const int THINK_TIME_BETWEEN_MOUSE_DOWNS = 1500;
-        private const int THINK_TIME_BETWEEN_KEY_DOWNS = 1200;
-
         private static Dictionary<string, string> _actionLogKeyToCodeLogKey = new Dictionary<string, string>()
         {
             {"d1", "1" },
@@ -51,6 +47,7 @@ namespace Hooker
             {"rcontrolkey", "^" },
             {"lmenu", "%" },
             {"rmenu", "%" },
+            //{"lwin", "^{ESC}"}, //doesn't work directly, but may be overcomed using native windows calls, or third-party libs solutions based on native windows calls
 
             {"a", "a" },
             {"b", "b" },
@@ -101,7 +98,12 @@ namespace Hooker
 
             {"tab", "{TAB}"},
             {"", ""},
-            {"oemcomma", ","}
+            {"oemcomma", ","},
+            {"oemquestion", "{/}"},
+            {"oemtilde", "{~}"},
+            {"oemopenbrackets", "{[}"},
+            {"oem5", "{\\\\}"}, //1st "\" is escape-symbol, 2d is symbol we'd like to type, and 3d and 4th is required to write "\\" to classCode file
+            {"oem6", "{]}"}
         };
 
         public CodeGenerator()
@@ -110,10 +112,12 @@ namespace Hooker
         }
 
 
-        public void PerformStandardCodeGeneration(string recorderLogFilePath, string codeGeneratorLogFilePath)
+        public void PerformStandardCodeGeneration(string recorderLogFilePath, string codeGeneratorLogFilePath, int thinkTimeBetweenMouseMoves = 200, int thinkTimeBetweenMouseDowns = 1500, int thinkTimeBetweenKeyDowns = 1200)
         {
             using (StreamReader sr = new StreamReader(recorderLogFilePath))
             {
+                DeleteCodeLog(codeGeneratorLogFilePath);
+
                 string line = null;
                 while ((line = sr.ReadLine()) != null)
                 {
@@ -122,15 +126,15 @@ namespace Hooker
 
                     if (parameters[0].Equals(MOUSE_MOVE))
                     {
-                        GenerateMouseMoves(codeGeneratorLogFilePath, parameters, THINK_TIME_BETWEEN_MOUSE_MOVES);
+                        GenerateMouseMoves(codeGeneratorLogFilePath, parameters, thinkTimeBetweenMouseMoves);
                     }
                     else if (parameters[0].Equals(MOUSE_DOWN))
                     {
-                        GenerateMouseDowns(codeGeneratorLogFilePath, parameters, THINK_TIME_BETWEEN_MOUSE_DOWNS);
+                        GenerateMouseDowns(codeGeneratorLogFilePath, parameters, thinkTimeBetweenMouseDowns);
                     }
                     else if (parameters[0].Equals(KEY_DOWN))
                     {
-                        GenerateKeyDowns(codeGeneratorLogFilePath, parameters, THINK_TIME_BETWEEN_KEY_DOWNS);
+                        GenerateKeyDowns(codeGeneratorLogFilePath, parameters, thinkTimeBetweenKeyDowns);
                     }
                     else if (parameters[0].Equals(COMMENT))
                     {
@@ -140,56 +144,55 @@ namespace Hooker
             }
 
             PerformClassCodeGeneration(codeGeneratorLogFilePath, "classCodeTemplate.txt", "//Generated code starts after this line");
-            
         }
 
         public void PerformImprovedCodeGeneration(string actionLogFilePath, string codeLogFilePath)
         {
-            DeleteCodeLog(codeLogFilePath);
+            //DeleteCodeLog(codeLogFilePath);
 
-            string[] _actionLogContent = null;
-            _actionLogContent = File.ReadAllLines(actionLogFilePath);
+            //string[] _actionLogContent = null;
+            //_actionLogContent = File.ReadAllLines(actionLogFilePath);
 
-            int i = 0;
-            while (i < _actionLogContent.Length)
-            {
-                string line = _actionLogContent[i];
-                string[] parameters = line.Split(' ');
+            //int i = 0;
+            //while (i < _actionLogContent.Length)
+            //{
+            //    string line = _actionLogContent[i];
+            //    string[] parameters = line.Split(' ');
 
-                if (parameters[0].Equals(MOUSE_MOVE))
-                {
-                    int j = i + 1;
-                    while (j < _actionLogContent.Length)
-                    {
-                        string nextLine = _actionLogContent[j];
-                        string[] nextParameters = nextLine.Split(' ');
+            //    if (parameters[0].Equals(MOUSE_MOVE))
+            //    {
+            //        int j = i + 1;
+            //        while (j < _actionLogContent.Length)
+            //        {
+            //            string nextLine = _actionLogContent[j];
+            //            string[] nextParameters = nextLine.Split(' ');
 
-                        if (nextParameters[0].Equals(MOUSE_DOWN) || nextParameters[0].Equals(KEY_DOWN))
-                        {
-                            GenerateMouseMoves(codeLogFilePath, parameters, j * THINK_TIME_BETWEEN_MOUSE_MOVES);
-                            i = j - 1;
-                            break;
-                        }
-                        else j++;
-                    }
-                }
-                else if (parameters[0].Equals(MOUSE_DOWN))
-                {
-                    GenerateMouseDowns(codeLogFilePath, parameters, THINK_TIME_BETWEEN_MOUSE_DOWNS);
-                }
-                else if (parameters[0].Equals(KEY_DOWN))
-                {
-                    GenerateKeyDowns(codeLogFilePath, parameters, THINK_TIME_BETWEEN_KEY_DOWNS);
-                }
-                else if (parameters[0].Equals(COMMENT))
-                {
-                    GenerateComments(codeLogFilePath, parameters);
-                }
-                i++;
-            }
+            //            if (nextParameters[0].Equals(MOUSE_DOWN) || nextParameters[0].Equals(KEY_DOWN))
+            //            {
+            //                GenerateMouseMoves(codeLogFilePath, parameters, j * THINK_TIME_BETWEEN_MOUSE_MOVES);
+            //                i = j - 1;
+            //                break;
+            //            }
+            //            else j++;
+            //        }
+            //    }
+            //    else if (parameters[0].Equals(MOUSE_DOWN))
+            //    {
+            //        GenerateMouseDowns(codeLogFilePath, parameters, THINK_TIME_BETWEEN_MOUSE_DOWNS);
+            //    }
+            //    else if (parameters[0].Equals(KEY_DOWN))
+            //    {
+            //        GenerateKeyDowns(codeLogFilePath, parameters, THINK_TIME_BETWEEN_KEY_DOWNS);
+            //    }
+            //    else if (parameters[0].Equals(COMMENT))
+            //    {
+            //        GenerateComments(codeLogFilePath, parameters);
+            //    }
+            //    i++;
+            //}
         }
 
-        private void PerformClassCodeGeneration(string codeGeneratorLogFilePath, string classCodeTemplateFilePath, string stringAfterWhichGeneratedCodeShouldBeInserted)
+        private void PerformClassCodeGeneration(string codeGeneratorLogFilePath, string classCodeTemplateFilePath, string stringAfterWhichGeneratedCodeShouldBeInserted, string classCodeFilePath = "classCode.cs")
         {
             string[] codeGeneratorLines = File.ReadAllLines(codeGeneratorLogFilePath);
             List<string> classCodeLines = File.ReadAllLines(classCodeTemplateFilePath).ToList();
@@ -201,7 +204,6 @@ namespace Hooker
                 if (classCodeLine.Contains(stringAfterWhichGeneratedCodeShouldBeInserted))
                 {
                     int offsetForCodeLinesInsertion =  classCodeLine.IndexOf(stringAfterWhichGeneratedCodeShouldBeInserted);
-                    MessageBox.Show("Offset = {0}" + offsetForCodeLinesInsertion);
                     for (int i = 0; i < codeGeneratorLines.Length; i++)
                     {
                         StringBuilder sb = new StringBuilder(codeGeneratorLines[i]);
@@ -212,11 +214,12 @@ namespace Hooker
                 }
             }
 
-            for(int i = 0; i < codeGeneratorLines.Length; i++)
+            for(int i = codeGeneratorLines.Length - 1; i >= 0 ; i--)
             {
                 classCodeLines.Insert(stringAfterWhichGeneratedCodeShouldBeInsertedIndex, codeGeneratorLines[i]);
             }
-            File.WriteAllLines("test.txt", classCodeLines.ToArray());
+
+            File.WriteAllLines(classCodeFilePath, classCodeLines.ToArray());
         }
 
         private void DeleteCodeLog(string codeLogFilePath)
@@ -236,7 +239,7 @@ namespace Hooker
             using (StreamWriter sw = new StreamWriter(codeLogFilePath, true))
             {
                 sw.WriteLine("System.Windows.Forms.Cursor.Position = new System.Drawing.Point({0}, {1});", parameters[1], parameters[2]);
-                sw.WriteLine("System.Threading.Thread.Sleep({0});", THINK_TIME_BETWEEN_MOUSE_MOVES);
+                sw.WriteLine("System.Threading.Thread.Sleep({0});", thinkTimeMilliseconds);
             }
         }
 
@@ -245,9 +248,9 @@ namespace Hooker
             using (StreamWriter sw = new StreamWriter(codeLogFilePath, true))
             {
                 sw.WriteLine("System.Windows.Forms.Cursor.Position = new System.Drawing.Point({0}, {1});", parameters[1], parameters[2]);
-                sw.WriteLine("System.Threading.Thread.Sleep({0});", THINK_TIME_BETWEEN_MOUSE_DOWNS);
+                sw.WriteLine("System.Threading.Thread.Sleep({0});", thinkTimeMilliseconds);
                 sw.WriteLine("mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, {0}, {1}, 0, 0);", parameters[1], parameters[2]);
-                sw.WriteLine("System.Threading.Thread.Sleep({0});", THINK_TIME_BETWEEN_MOUSE_DOWNS);
+                sw.WriteLine("System.Threading.Thread.Sleep({0});", thinkTimeMilliseconds);
             }
         }
 
@@ -270,7 +273,7 @@ namespace Hooker
                     if (keyToSend != null)
                     {
                         sw.WriteLine("System.Windows.Forms.SendKeys.SendWait(\"{0}\");", keyToSend);
-                        sw.WriteLine("System.Threading.Thread.Sleep({0});", THINK_TIME_BETWEEN_KEY_DOWNS);
+                        sw.WriteLine("System.Threading.Thread.Sleep({0});", thinkTimeMilliseconds);
                     }
                 }
                 else
@@ -290,7 +293,7 @@ namespace Hooker
                         //MessageBox.Show("Exception while processing KeyDown 2 params " + "length = " + parameters.Length + " " + ex.Message + " : p0 = " + parameters[0] + " p1 = " + parameters[1] + " p2 = " + parameters[2]);
                     }
                     sw.WriteLine("System.Windows.Forms.SendKeys.SendWait(\"{0}{1}\");", key1, key2, key3);
-                    sw.WriteLine("System.Threading.Thread.Sleep({0});", THINK_TIME_BETWEEN_KEY_DOWNS);
+                    sw.WriteLine("System.Threading.Thread.Sleep({0});", thinkTimeMilliseconds);
                 }
             }
         }

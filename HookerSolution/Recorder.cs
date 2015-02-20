@@ -165,7 +165,8 @@ namespace Hooker
                         _keysDownList.Contains(Keys.RShiftKey) ||
                         _keysDownList.Contains(Keys.LControlKey) ||
                         _keysDownList.Contains(Keys.RControlKey) ||
-                        _keysDownList.Contains(Keys.Alt))
+                        _keysDownList.Contains(Keys.Alt) ||
+                        _keysDownList.Contains(Keys.LMenu))
                         {
                             foreach (Keys k in _keysDownList)
                             {
