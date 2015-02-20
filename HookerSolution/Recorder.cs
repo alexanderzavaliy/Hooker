@@ -31,22 +31,21 @@ namespace Hooker
         private const string MOUSE_DOUBLE = "MouseDouble";
         private const string KEY_DOWN = "KeyDown";
         private const string KEY_UP = "KeyUp";
-        private const string ACTION_LOG_FILE_PATH = "actionLog.txt";
-        private const string CODE_LOG_FILE_PATH = "codeLog.txt";
        
         private string _applicationPath;
         private string _applicationProcessName;
         private Process _processToRecord;
+        private string _recorderLogFilePath;
         private List<Keys> _keysDownList;
         private OnStopRecordingDelegate _onStopRecordingDelegate;
         
-        public Recorder(string applicationPath, string applicationProcessName, OnStopRecordingDelegate onStopRecordingDelegate)
+        public Recorder(string applicationPath, string applicationProcessName, string recorderLogFilePath, OnStopRecordingDelegate onStopRecordingDelegate)
         {
             _applicationPath = applicationPath;
             _applicationProcessName = applicationProcessName;
+            _recorderLogFilePath = recorderLogFilePath;
             _onStopRecordingDelegate = onStopRecordingDelegate;
             globalEventProvider = new Gma.UserActivityMonitor.GlobalEventProvider();
-
         }
         
         public void StartRecording(CurrentApplicationState state)
@@ -57,7 +56,7 @@ namespace Hooker
             }
 
             SetForegroundWindow(_applicationProcessName);
-            DeleteActionLog(ACTION_LOG_FILE_PATH);
+            DeleteRecorderLog(_recorderLogFilePath);
             _keysDownList = new List<Keys>();
 
             SubsribeGlobalEventProvider(globalEventProvider);
@@ -89,15 +88,15 @@ namespace Hooker
             }
         }
 
-        private void DeleteActionLog(string actionLogFileName)
+        private void DeleteRecorderLog(string recorderLogFilePath)
         {
             try
             {
-                File.Delete(actionLogFileName);
+                File.Delete(recorderLogFilePath);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Exception while deleting " + actionLogFileName + " file");
+                MessageBox.Show("Exception while deleting " + recorderLogFilePath + " file");
             }
         }
 
@@ -158,7 +157,7 @@ namespace Hooker
                 }
                 Debug.WriteLine("");
                 
-                using (System.IO.StreamWriter wr = new System.IO.StreamWriter(ACTION_LOG_FILE_PATH, true))
+                using (System.IO.StreamWriter wr = new System.IO.StreamWriter(_recorderLogFilePath, true))
                 {
                     wr.Write(KEY_DOWN + " ");
 
@@ -195,7 +194,7 @@ namespace Hooker
                 DialogResult dialogResult = CommentsDialog.Show("Recording Control", "Type your comment here", ref commentBody);
                 if (dialogResult == DialogResult.OK)
                 {
-                    using (System.IO.StreamWriter wr = new System.IO.StreamWriter(ACTION_LOG_FILE_PATH, true))
+                    using (System.IO.StreamWriter wr = new System.IO.StreamWriter(_recorderLogFilePath, true))
                     {
                         wr.Write(COMMENT + " ");
                         wr.Write(commentBody);
@@ -234,7 +233,7 @@ namespace Hooker
         private void HookManager_MouseMove(object sender, MouseEventArgs e)
         {
             //labelMousePosition.Text = string.Format("x={0:0000}; y={1:0000}", e.X, e.Y);
-            using (System.IO.StreamWriter wr = new System.IO.StreamWriter(ACTION_LOG_FILE_PATH, true))
+            using (System.IO.StreamWriter wr = new System.IO.StreamWriter(_recorderLogFilePath, true))
             {
                 wr.WriteLine(MOUSE_MOVE + " " + e.X + " " + e.Y);
             }
@@ -256,7 +255,7 @@ namespace Hooker
         {
             //textBoxLog.AppendText(string.Format("MouseDown - {0}\n", e.Button));
             //textBoxLog.ScrollToCaret();
-            using (System.IO.StreamWriter wr = new System.IO.StreamWriter(ACTION_LOG_FILE_PATH, true))
+            using (System.IO.StreamWriter wr = new System.IO.StreamWriter(_recorderLogFilePath, true))
             {
                 wr.WriteLine(MOUSE_DOWN + " " + e.Location.X + " " + e.Location.Y + " " + e.Button);
             }
@@ -266,7 +265,7 @@ namespace Hooker
         {
             //textBoxLog.AppendText(string.Format("MouseDoubleClick - {0}\n", e.Button));
             //textBoxLog.ScrollToCaret();
-            using (System.IO.StreamWriter wr = new System.IO.StreamWriter(ACTION_LOG_FILE_PATH, true))
+            using (System.IO.StreamWriter wr = new System.IO.StreamWriter(_recorderLogFilePath, true))
             {
                 wr.WriteLine(MOUSE_DOUBLE + " " + e.Location.X + " " + e.Location.Y + " " + e.Button);
             }

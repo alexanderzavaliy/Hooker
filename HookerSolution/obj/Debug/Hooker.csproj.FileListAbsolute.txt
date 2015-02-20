@@ -40,3 +40,13 @@ h:\Automation\GUI\Hooker\HookerSolution\bin\Debug\Hooker.exe
 h:\Automation\GUI\Hooker\HookerSolution\bin\Debug\Hooker.pdb
 h:\Automation\GUI\Hooker\HookerSolution\bin\Debug\Gma.UserActivityMonitor.dll
 h:\Automation\GUI\Hooker\HookerSolution\bin\Debug\Gma.UserActivityMonitor.pdb
+E:\GitRepositories\Hooker\HookerSolution\bin\Debug\Hooker.exe.config
+E:\GitRepositories\Hooker\HookerSolution\obj\Debug\Hooker.exe
+E:\GitRepositories\Hooker\HookerSolution\obj\Debug\Hooker.pdb
+E:\GitRepositories\Hooker\HookerSolution\obj\Debug\Hooker.csprojResolveAssemblyReference.cache
+E:\GitRepositories\Hooker\HookerSolution\obj\Debug\Hooker.Properties.Resources.resources
+E:\GitRepositories\Hooker\HookerSolution\obj\Debug\Hooker.csproj.GenerateResource.Cache
+E:\GitRepositories\Hooker\HookerSolution\bin\Debug\Hooker.exe
+E:\GitRepositories\Hooker\HookerSolution\bin\Debug\Hooker.pdb
+E:\GitRepositories\Hooker\HookerSolution\bin\Debug\Gma.UserActivityMonitor.dll
+E:\GitRepositories\Hooker\HookerSolution\bin\Debug\Gma.UserActivityMonitor.pdb

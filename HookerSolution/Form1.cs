@@ -22,6 +22,9 @@ namespace Hooker
         private CheckBox _launchApplicationCheckBox;
 
         private Recorder _recorder;
+        private CodeGenerator _codeGenerator;
+        string _recorderLogFilePath = "recorderLog.txt";
+        string _codeGeneratorLogFilePath = "codeGeneratorLog.txt";
 
         public Form1()
         {
@@ -59,7 +62,7 @@ namespace Hooker
         {
             this.WindowState = FormWindowState.Minimized;
 
-            _recorder = new Recorder(_applicationPathTextBox.Text, _applicationProcessNameTextBox.Text, new Recorder.OnStopRecordingDelegate(OnStopRecording));
+            _recorder = new Recorder(_applicationPathTextBox.Text, _applicationProcessNameTextBox.Text, _recorderLogFilePath, new Recorder.OnStopRecordingDelegate(OnStopRecording));
 
             if (_launchApplicationCheckBox.Checked == true)
                 _recorder.StartRecording(Recorder.CurrentApplicationState.NotLaunched);
@@ -79,6 +82,9 @@ namespace Hooker
                 //CodeGenerator.PerformImprovedCodeGeneration(ACTION_LOG_FILE_PATH, CODE_LOG_FILE_PATH);
                 MessageBox.Show("Recording stopped", "Ok");
             });
+
+            _codeGenerator = new CodeGenerator();
+            _codeGenerator.PerformStandardCodeGeneration(_recorderLogFilePath, _codeGeneratorLogFilePath);
         }
 
 

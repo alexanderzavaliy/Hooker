@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 
 namespace Hooker
 {
-    public static class CodeGenerator
+    public class CodeGenerator
     {
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
@@ -104,9 +104,15 @@ namespace Hooker
             {"oemcomma", ","}
         };
 
-        public static void PerformStandardCodeGeneration(string actionLogFilePath, string codeLogFilePath)
+        public CodeGenerator()
         {
-            using (StreamReader sr = new StreamReader(actionLogFilePath))
+        
+        }
+
+
+        public void PerformStandardCodeGeneration(string recorderLogFilePath, string codeGeneratorLogFilePath)
+        {
+            using (StreamReader sr = new StreamReader(recorderLogFilePath))
             {
                 string line = null;
                 while ((line = sr.ReadLine()) != null)
@@ -116,34 +122,30 @@ namespace Hooker
 
                     if (parameters[0].Equals(MOUSE_MOVE))
                     {
-                        GenerateMouseMoves(codeLogFilePath, parameters, THINK_TIME_BETWEEN_MOUSE_MOVES);
+                        GenerateMouseMoves(codeGeneratorLogFilePath, parameters, THINK_TIME_BETWEEN_MOUSE_MOVES);
                     }
                     else if (parameters[0].Equals(MOUSE_DOWN))
                     {
-                        GenerateMouseDowns(codeLogFilePath, parameters, THINK_TIME_BETWEEN_MOUSE_DOWNS);
+                        GenerateMouseDowns(codeGeneratorLogFilePath, parameters, THINK_TIME_BETWEEN_MOUSE_DOWNS);
                     }
                     else if (parameters[0].Equals(KEY_DOWN))
                     {
-                        GenerateKeyDowns(codeLogFilePath, parameters, THINK_TIME_BETWEEN_KEY_DOWNS);
+                        GenerateKeyDowns(codeGeneratorLogFilePath, parameters, THINK_TIME_BETWEEN_KEY_DOWNS);
                     }
                     else if (parameters[0].Equals(COMMENT))
                     {
-                        GenerateComments(codeLogFilePath, parameters);
+                        GenerateComments(codeGeneratorLogFilePath, parameters);
                     }
                 }
             }
+
+            PerformClassCodeGeneration(codeGeneratorLogFilePath, "classCodeTemplate.txt", "//Generated code starts after this line");
+            
         }
 
-        public static void PerformImprovedCodeGeneration(string actionLogFilePath, string codeLogFilePath)
+        public void PerformImprovedCodeGeneration(string actionLogFilePath, string codeLogFilePath)
         {
-            try
-            {
-                File.Delete(codeLogFilePath);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception while deleting " + codeLogFilePath + " file");
-            }
+            DeleteCodeLog(codeLogFilePath);
 
             string[] _actionLogContent = null;
             _actionLogContent = File.ReadAllLines(actionLogFilePath);
@@ -187,7 +189,49 @@ namespace Hooker
             }
         }
 
-        private static void GenerateMouseMoves(string codeLogFilePath, string[] parameters, int thinkTimeMilliseconds)
+        private void PerformClassCodeGeneration(string codeGeneratorLogFilePath, string classCodeTemplateFilePath, string stringAfterWhichGeneratedCodeShouldBeInserted)
+        {
+            string[] codeGeneratorLines = File.ReadAllLines(codeGeneratorLogFilePath);
+            List<string> classCodeLines = File.ReadAllLines(classCodeTemplateFilePath).ToList();
+
+            int stringAfterWhichGeneratedCodeShouldBeInsertedIndex = 0;
+            foreach(string classCodeLine in classCodeLines)
+            {
+                stringAfterWhichGeneratedCodeShouldBeInsertedIndex++;
+                if (classCodeLine.Contains(stringAfterWhichGeneratedCodeShouldBeInserted))
+                {
+                    int offsetForCodeLinesInsertion =  classCodeLine.IndexOf(stringAfterWhichGeneratedCodeShouldBeInserted);
+                    MessageBox.Show("Offset = {0}" + offsetForCodeLinesInsertion);
+                    for (int i = 0; i < codeGeneratorLines.Length; i++)
+                    {
+                        StringBuilder sb = new StringBuilder(codeGeneratorLines[i]);
+                        sb.Insert(0, " ", offsetForCodeLinesInsertion);
+                        codeGeneratorLines[i] = sb.ToString();
+                    }
+                    break;
+                }
+            }
+
+            for(int i = 0; i < codeGeneratorLines.Length; i++)
+            {
+                classCodeLines.Insert(stringAfterWhichGeneratedCodeShouldBeInsertedIndex, codeGeneratorLines[i]);
+            }
+            File.WriteAllLines("test.txt", classCodeLines.ToArray());
+        }
+
+        private void DeleteCodeLog(string codeLogFilePath)
+        {
+            try
+            {
+                File.Delete(codeLogFilePath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception while deleting " + codeLogFilePath + " file");
+            }
+        }
+
+        private void GenerateMouseMoves(string codeLogFilePath, string[] parameters, int thinkTimeMilliseconds)
         {
             using (StreamWriter sw = new StreamWriter(codeLogFilePath, true))
             {
@@ -196,7 +240,7 @@ namespace Hooker
             }
         }
 
-        private static void GenerateMouseDowns(string codeLogFilePath, string[] parameters, int thinkTimeMilliseconds)
+        private void GenerateMouseDowns(string codeLogFilePath, string[] parameters, int thinkTimeMilliseconds)
         {
             using (StreamWriter sw = new StreamWriter(codeLogFilePath, true))
             {
@@ -207,7 +251,7 @@ namespace Hooker
             }
         }
 
-        private static void GenerateKeyDowns(string codeLogFilePath, string[] parameters, int thinkTimeMilliseconds)
+        private void GenerateKeyDowns(string codeLogFilePath, string[] parameters, int thinkTimeMilliseconds)
         {
             using (StreamWriter sw = new StreamWriter(codeLogFilePath, true))
             {
@@ -251,7 +295,7 @@ namespace Hooker
             }
         }
 
-        private static void GenerateComments(string codeLogFilePath, string[] parameters)
+        private void GenerateComments(string codeLogFilePath, string[] parameters)
         {
             using (StreamWriter sw = new StreamWriter(codeLogFilePath, true))
             {
