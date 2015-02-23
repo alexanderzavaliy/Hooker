@@ -1,0 +1,8 @@
+printscreen
+scroll
+pause
+home
+delete
+end
+next
+apps

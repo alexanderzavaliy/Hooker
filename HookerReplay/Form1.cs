@@ -13,7 +13,7 @@ using System.Reflection;
 using System.IO;
 using System.Diagnostics;
 
-namespace HookerReplay
+namespace Hooker
 {
     public partial class Replayer : Form
     {
@@ -48,12 +48,9 @@ namespace HookerReplay
 
             compilerParams.ReferencedAssemblies.Add("System.dll");
             compilerParams.ReferencedAssemblies.Add("System.Windows.Forms.dll");
-            //compilerParams.ReferencedAssemblies.Add("System.Runtime.InteropServices.dll");
-            //compilerParams.ReferencedAssemblies.Add("System.IO.dll");
-            //compilerParams.ReferencedAssemblies.Add("System.Threading.dll");
             compilerParams.ReferencedAssemblies.Add("System.Drawing.dll");
 
-            CompilerResults results = provider.CompileAssemblyFromFile(compilerParams, @"E:\GitRepositories\Hooker\HookerSolution\bin\Debug\classCode.cs");
+            CompilerResults results = provider.CompileAssemblyFromFile(compilerParams, @"E:\GitRepositories\Hooker\HookerRecord\bin\Debug\classCode.cs");
 
             if (results.Errors.Count != 0)
             {
@@ -63,7 +60,7 @@ namespace HookerReplay
                 }
             }
 
-            object o = results.CompiledAssembly.CreateInstance("HookerReplay.Replayer");
+            object o = results.CompiledAssembly.CreateInstance("Hooker.Replayer");
             MethodInfo mi = o.GetType().GetMethod("ExecuteRecordedCode");
             mi.Invoke(o, null);
             Debug.WriteLine("Execution finished");

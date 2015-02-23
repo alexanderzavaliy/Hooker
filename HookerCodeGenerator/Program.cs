@@ -16,7 +16,7 @@ namespace Hooker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Replayer());
+            Application.Run(new Form1());
         }
     }
 }

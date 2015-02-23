@@ -1,6 +1,6 @@
 ﻿namespace Hooker
 {
-    partial class Replayer
+    partial class Form1
     {
         /// <summary>
         /// Required designer variable.

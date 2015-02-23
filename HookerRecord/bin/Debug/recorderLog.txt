@@ -1,0 +1,116 @@
+MouseMove 80 153
+MouseMove 82 162
+MouseMove 88 176
+MouseMove 97 199
+MouseMove 110 228
+MouseMove 137 268
+MouseMove 184 330
+MouseMove 238 384
+MouseMove 291 433
+MouseMove 353 477
+MouseMove 412 508
+MouseMove 460 530
+MouseMove 507 552
+MouseMove 546 563
+MouseMove 569 572
+MouseMove 591 579
+MouseMove 606 583
+MouseMove 615 585
+MouseMove 619 585
+MouseMove 623 587
+MouseMove 626 587
+MouseMove 630 587
+MouseMove 635 588
+MouseMove 638 588
+MouseMove 642 590
+MouseMove 645 590
+MouseMove 646 590
+MouseMove 648 591
+MouseMove 650 591
+MouseMove 651 591
+MouseMove 652 591
+MouseMove 653 591
+MouseMove 654 591
+MouseMove 655 591
+MouseMove 657 591
+MouseMove 659 591
+MouseMove 662 591
+MouseMove 666 591
+MouseMove 671 592
+MouseMove 675 592
+MouseMove 681 592
+MouseMove 689 592
+MouseMove 698 592
+MouseMove 712 590
+MouseMove 728 590
+MouseMove 745 588
+MouseMove 762 583
+MouseMove 782 579
+MouseMove 796 577
+MouseMove 813 575
+MouseMove 822 571
+MouseMove 834 567
+MouseMove 840 566
+MouseMove 844 564
+MouseMove 849 563
+MouseMove 850 561
+MouseMove 853 560
+KeyDown lshiftkey 
+MouseMove 855 560
+MouseMove 860 560
+MouseMove 864 560
+MouseMove 868 560
+MouseMove 873 560
+MouseMove 875 560
+MouseMove 878 560
+MouseMove 879 560
+MouseMove 880 560
+MouseMove 882 560
+MouseMove 883 560
+KeyDown lshiftkey t 
+KeyDown h 
+KeyDown i 
+KeyDown s 
+KeyDown space 
+KeyDown i 
+KeyDown s 
+KeyDown space 
+KeyDown h 
+KeyDown back 
+KeyDown g 
+KeyDown r 
+KeyDown e 
+KeyDown a 
+KeyDown t 
+KeyDown space 
+KeyDown e 
+KeyDown x 
+KeyDown a 
+KeyDown m 
+MouseMove 885 560
+MouseMove 891 560
+MouseMove 896 560
+MouseMove 902 560
+MouseMove 906 560
+MouseMove 909 560
+MouseMove 912 561
+MouseMove 913 561
+KeyDown p 
+KeyDown l 
+KeyDown e 
+KeyDown back 
+KeyDown back 
+KeyDown back 
+KeyDown back 
+KeyDown back 
+KeyDown back 
+KeyDown back 
+KeyDown oemcomma 
+KeyDown space 
+KeyDown y 
+KeyDown e 
+KeyDown s 
+KeyDown lmenu 
+KeyDown lmenu f4 
+KeyDown tab 
+KeyDown return 

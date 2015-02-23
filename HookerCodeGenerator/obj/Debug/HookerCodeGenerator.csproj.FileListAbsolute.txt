@@ -1,0 +1,8 @@
+E:\GitRepositories\Hooker\HookerCodeGenerator\obj\Debug\HookerCodeGenerator.csprojResolveAssemblyReference.cache
+E:\GitRepositories\Hooker\HookerCodeGenerator\obj\Debug\HookerCodeGenerator.Properties.Resources.resources
+E:\GitRepositories\Hooker\HookerCodeGenerator\obj\Debug\HookerCodeGenerator.csproj.GenerateResource.Cache
+E:\GitRepositories\Hooker\HookerCodeGenerator\bin\Debug\HookerCodeGenerator.exe.config
+E:\GitRepositories\Hooker\HookerCodeGenerator\bin\Debug\HookerCodeGenerator.exe
+E:\GitRepositories\Hooker\HookerCodeGenerator\bin\Debug\HookerCodeGenerator.pdb
+E:\GitRepositories\Hooker\HookerCodeGenerator\obj\Debug\HookerCodeGenerator.exe
+E:\GitRepositories\Hooker\HookerCodeGenerator\obj\Debug\HookerCodeGenerator.pdb
