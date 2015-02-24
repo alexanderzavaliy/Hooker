@@ -5,3 +5,4 @@ E:\GitRepositories\Hooker\HookerCodeGenerator\bin\Debug\HookerCodeGenerator.exe
 E:\GitRepositories\Hooker\HookerCodeGenerator\bin\Debug\HookerCodeGenerator.pdb
 E:\GitRepositories\Hooker\HookerCodeGenerator\obj\Debug\HookerCodeGenerator.exe
 E:\GitRepositories\Hooker\HookerCodeGenerator\obj\Debug\HookerCodeGenerator.pdb
+E:\GitRepositories\Hooker\HookerCodeGenerator\obj\Debug\HookerCodeGenerator.csprojResolveAssemblyReference.cache

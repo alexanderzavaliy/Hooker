@@ -193,7 +193,7 @@ namespace Hooker
                 
                 if (currentLine.StartsWith(KEY_DOWN))
                 {
-                    if (ContainsLineBreaker(nextLine))
+                    if (ContainsLineBreaker(nextLine) || (!nextLine.StartsWith(KEY_DOWN)))
                     {
                         linesToWrite.Add(sb.ToString());
                         sbWasAppended = false;

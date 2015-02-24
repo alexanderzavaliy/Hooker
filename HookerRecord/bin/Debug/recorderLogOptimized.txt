@@ -1,4 +1,8 @@
-MouseMove 470 288
-MouseDown 470 288 Left
-MouseMove 470 283
-KeyDown apps 179 228
+MouseMove 712 508
+KeyDown lshiftkey h e l l o 
+KeyDown return 
+KeyDown return 
+KeyDown return 
+MouseMove 623 523
+KeyDown a b c d 
+MouseDown 623 523 Left
