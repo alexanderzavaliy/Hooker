@@ -1,0 +1,4 @@
+MouseMove 585 444
+KeyDown lwin 
+KeyDown up 
+KeyDown lmenu 

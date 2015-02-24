@@ -112,11 +112,112 @@ namespace Hooker
             {"oem6", "{]}"}
         };
 
+        private static Dictionary<string, string> _lineBreakerKeys = new Dictionary<string, string>()
+        {
+            {"back", "" },
+            {"delete", "" },
+            {"return", "" },
+            {"lshiftkey", "" },
+            {"rshiftkey", "" },
+            {"lcontrolkey", "^" },
+            {"rcontrolkey", "^" },
+            {"lmenu", "" },
+            {"rmenu", "" },
+            //{"lwin", "^{ESC}"}, //doesn't work directly, but may be overcomed using native windows calls, or third-party libs solutions based on native windows calls. Not implemented currently
+
+ 
+            {"escape", "" },
+            {"space", "" },
+            {"f1", "" },
+            {"f2", "" },
+            {"f3", "" },
+            {"f4", "" },
+            {"f5", "" },
+            {"f6", "" },
+            {"f7", "" },
+            {"f8", "" },
+            {"f9", "" },
+            {"f10", "" },
+            {"f11", "" },
+            {"f12", "" },
+
+            {"up", "" },
+            {"down", "" },
+            {"left", "" },
+            {"right", "" },
+
+            {"tab", ""},
+        };
+
         public CodeGenerator()
         {
         
         }
 
+        public void CreateOptimizedRecorderLog(string recorderLogFilePath, string recorderLogOptimizedFilePath)
+        {
+            string[] lines = File.ReadAllLines(recorderLogFilePath);
+            List<string> linesToWrite = new List<string>();
+            
+            string currentLine;
+            string nextLine;
+           
+            StringBuilder sb = new StringBuilder("");
+            bool sbWasAppended = false;
+
+            for(int i = 0; i < lines.Length - 1; i++)
+            {
+                currentLine = lines[i];
+                nextLine = lines[i + 1];
+                if (!sbWasAppended)
+                    sb = new StringBuilder(currentLine);
+
+                if (currentLine.StartsWith(MOUSE_MOVE) && !nextLine.StartsWith(MOUSE_MOVE))
+                {
+                    linesToWrite.Add(currentLine);
+                }
+
+                if (currentLine.StartsWith(MOUSE_DOWN))
+                {
+                    linesToWrite.Add(currentLine);
+                }
+                
+                if (currentLine.StartsWith(KEY_DOWN))
+                {
+                    if (ContainsLineBreaker(nextLine))
+                    {
+                        linesToWrite.Add(sb.ToString());
+                        sbWasAppended = false;
+                    }
+                    else
+                    {
+                        string[] parameters = nextLine.Split(' ');
+                        
+                        for (int j = 1; j < parameters.Length; j++)
+                        {
+                            if (!sb[sb.Length-1].Equals(' ')) sb.Append(" ");
+                            sb.Append(parameters[j]);
+                        }
+                        sbWasAppended = true;
+                    }
+                }
+            }
+            File.WriteAllLines(recorderLogOptimizedFilePath, linesToWrite.ToArray());
+        }
+
+        private bool ContainsLineBreaker(string line)
+        {
+            string[] parameters = line.Split(' ');
+
+            for (int j = 0; j < parameters.Length; j++)
+            {
+                if (_lineBreakerKeys.Keys.Contains(parameters[j]))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         public void PerformStandardCodeGeneration(string recorderLogFilePath, string codeGeneratorConfigurationFilePath, string codeGeneratorLogFilePath, string classCodeTemplateFilePath, string classCodeFilePath)
         {
@@ -159,52 +260,6 @@ namespace Hooker
             PerformClassCodeGeneration(codeGeneratorLogFilePath, classCodeTemplateFilePath, generatedCodeStartsAfterThisLine, classCodeFilePath);
         }
 
-        public void PerformImprovedCodeGeneration(string actionLogFilePath, string codeLogFilePath)
-        {
-            //DeleteCodeLog(codeLogFilePath);
-
-            //string[] _actionLogContent = null;
-            //_actionLogContent = File.ReadAllLines(actionLogFilePath);
-
-            //int i = 0;
-            //while (i < _actionLogContent.Length)
-            //{
-            //    string line = _actionLogContent[i];
-            //    string[] parameters = line.Split(' ');
-
-            //    if (parameters[0].Equals(MOUSE_MOVE))
-            //    {
-            //        int j = i + 1;
-            //        while (j < _actionLogContent.Length)
-            //        {
-            //            string nextLine = _actionLogContent[j];
-            //            string[] nextParameters = nextLine.Split(' ');
-
-            //            if (nextParameters[0].Equals(MOUSE_DOWN) || nextParameters[0].Equals(KEY_DOWN))
-            //            {
-            //                GenerateMouseMoves(codeLogFilePath, parameters, j * THINK_TIME_BETWEEN_MOUSE_MOVES);
-            //                i = j - 1;
-            //                break;
-            //            }
-            //            else j++;
-            //        }
-            //    }
-            //    else if (parameters[0].Equals(MOUSE_DOWN))
-            //    {
-            //        GenerateMouseDowns(codeLogFilePath, parameters, THINK_TIME_BETWEEN_MOUSE_DOWNS);
-            //    }
-            //    else if (parameters[0].Equals(KEY_DOWN))
-            //    {
-            //        GenerateKeyDowns(codeLogFilePath, parameters, THINK_TIME_BETWEEN_KEY_DOWNS);
-            //    }
-            //    else if (parameters[0].Equals(COMMENT))
-            //    {
-            //        GenerateComments(codeLogFilePath, parameters);
-            //    }
-            //    i++;
-            //}
-        }
-
         private void PerformClassCodeGeneration(string codeGeneratorLogFilePath, string classCodeTemplateFilePath, string generatedCodeStartsAfterThisLine, string classCodeFilePath)
         {
             string[] codeGeneratorLines = File.ReadAllLines(codeGeneratorLogFilePath);
@@ -243,7 +298,7 @@ namespace Hooker
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception while deleting " + codeLogFilePath + " file");
+                Console.WriteLine("Exception while deleting " + codeLogFilePath + " file" + " ex = " + ex);
             }
         }
 
@@ -281,8 +336,17 @@ namespace Hooker
             {
                 sw.WriteLine("System.Windows.Forms.Cursor.Position = new System.Drawing.Point({0}, {1});", parameters[1], parameters[2]);
                 sw.WriteLine("System.Threading.Thread.Sleep({0});", thinkTimeMilliseconds);
-                sw.WriteLine("mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, {0}, {1}, 0, 0);", parameters[1], parameters[2]);
-                sw.WriteLine("System.Threading.Thread.Sleep({0});", thinkTimeMilliseconds);
+                
+                if (parameters[3] == "Left")
+                {
+                    sw.WriteLine("mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, {0}, {1}, 0, 0);", parameters[1], parameters[2]);
+                    sw.WriteLine("System.Threading.Thread.Sleep({0});", thinkTimeMilliseconds);
+                }
+                else if (parameters[3] == "Right")
+                {
+                    sw.WriteLine("mouse_event(MOUSEEVENTF_RIGHTDOWN | MOUSEEVENTF_RIGHTUP, {0}, {1}, 0, 0);", parameters[1], parameters[2]);
+                    sw.WriteLine("System.Threading.Thread.Sleep({0});", thinkTimeMilliseconds);
+                }
             }
         }
 
@@ -290,25 +354,22 @@ namespace Hooker
         {
             using (StreamWriter sw = new StreamWriter(codeLogFilePath, true))
             {
-                string key1 = null;
-                string key2 = null;
-                string key3 = null;
-                string key4 = null;
-                string key5 = null;
+                StringBuilder keys = new StringBuilder();
+                for(int i = 1; i < parameters.Length; i++)
+                {
+                    string key;
+                    try 
+                    {
+                        _actionLogKeyToCodeLogKey.TryGetValue(parameters[i], out key);
+                        keys.Append(key);
+                    }
+                    catch(Exception ex)
+                    {
 
-                try
-                {
-                    _actionLogKeyToCodeLogKey.TryGetValue(parameters[1], out key1);
-                    _actionLogKeyToCodeLogKey.TryGetValue(parameters[2], out key2);
-                    _actionLogKeyToCodeLogKey.TryGetValue(parameters[3], out key3);
-                    _actionLogKeyToCodeLogKey.TryGetValue(parameters[4], out key4);
-                    _actionLogKeyToCodeLogKey.TryGetValue(parameters[5], out key5);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    //MessageBox.Show("Exception while processing KeyDown 2 params " + "length = " + parameters.Length + " " + ex.Message + " : p0 = " + parameters[0] + " p1 = " + parameters[1] + " p2 = " + parameters[2]);
-                }
-                sw.WriteLine("System.Windows.Forms.SendKeys.SendWait(\"{0}{1}{2}{3}{4}\");", key1, key2, key3, key4, key5);
+
+                sw.WriteLine("System.Windows.Forms.SendKeys.SendWait(\"{0}\");", keys.ToString());
                 sw.WriteLine("System.Threading.Thread.Sleep({0});", thinkTimeMilliseconds);
             }
         }

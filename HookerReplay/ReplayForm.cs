@@ -32,7 +32,7 @@ namespace Hooker
 
             if (args.Length < 2)
             {
-                throw new Exception("Not enough parameters. Correct form: \"HookerReplay.exe <pathToCodeClass>\"");
+                throw new Exception("Not enough parameters. Correct form: \"HookerReplay.exe <pathToClassCodeFile>\"");
             }
 
             Dictionary<string, string> providerOptions = new Dictionary<string, string>
@@ -50,7 +50,7 @@ namespace Hooker
             compilerParams.ReferencedAssemblies.Add("System.Windows.Forms.dll");
             compilerParams.ReferencedAssemblies.Add("System.Drawing.dll");
 
-            CompilerResults results = provider.CompileAssemblyFromFile(compilerParams, @"E:\GitRepositories\Hooker\HookerRecord\bin\Debug\classCode.cs");
+            CompilerResults results = provider.CompileAssemblyFromFile(compilerParams, args[1]);
 
             if (results.Errors.Count != 0)
             {
@@ -64,6 +64,8 @@ namespace Hooker
             MethodInfo mi = o.GetType().GetMethod("ExecuteRecordedCode");
             mi.Invoke(o, null);
             Debug.WriteLine("Execution finished");
+
+            Environment.Exit(0);
         }
     }
 }

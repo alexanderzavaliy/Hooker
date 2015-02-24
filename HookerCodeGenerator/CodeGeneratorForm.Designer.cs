@@ -1,6 +1,6 @@
 ﻿namespace Hooker
 {
-    partial class Form1
+    partial class CodeGeneratorForm
     {
         /// <summary>
         /// Required designer variable.

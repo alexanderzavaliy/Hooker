@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace Hooker
 {
-    public partial class Form1 : Form
+    public partial class RecordForm : Form
     {
         private TextBox _applicationPathTextBox;
         private TextBox _applicationProcessNameTextBox;
@@ -22,11 +22,14 @@ namespace Hooker
 
         private Recorder _recorder;
         private CodeGenerator _codeGenerator;
-        const string RECORDER_LOG_FILE_PATH = "recorderLog.txt";
+        const string RECORDER_LOG_FILE_PATH = "recorderLogDefault.txt";
+        const string RECORDER_LOG_OPTIMIZED_FILE_PATH = "recorderLogOptimized.txt";
         const string CODE_GENERATOR_CONFIGURATION_FILE_PATH = "codeGeneratorConfiguration.txt";
         const string CODE_GENERATOR_LOG_FILE_PATH = "codeGeneratorLog.txt";
+        const string CLASS_CODE_TEMPLATE_FILE_PATH = "classCodeTemplate.txt";
+        const string CLASS_CODE_FILE_PATH = "classCode.cs";
 
-        public Form1()
+        public RecordForm()
         {
             InitializeComponent();
 
@@ -86,7 +89,8 @@ namespace Hooker
             });
 
             _codeGenerator = new CodeGenerator();
-            _codeGenerator.PerformStandardCodeGeneration(RECORDER_LOG_FILE_PATH, CODE_GENERATOR_CONFIGURATION_FILE_PATH, CODE_GENERATOR_LOG_FILE_PATH);
+            _codeGenerator.CreateOptimizedRecorderLog(RECORDER_LOG_FILE_PATH, RECORDER_LOG_OPTIMIZED_FILE_PATH);
+            _codeGenerator.PerformStandardCodeGeneration(RECORDER_LOG_OPTIMIZED_FILE_PATH, CODE_GENERATOR_CONFIGURATION_FILE_PATH, CODE_GENERATOR_LOG_FILE_PATH, CLASS_CODE_TEMPLATE_FILE_PATH, CLASS_CODE_FILE_PATH);
         }
     }
 }

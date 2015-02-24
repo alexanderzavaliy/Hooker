@@ -12,7 +12,7 @@ using System.IO;
 
 namespace Hooker
 {
-    public partial class Form1 : Form
+    public partial class CodeGeneratorForm : Form
     {
         private const int TEXTBOX_WIDTH = 350;
         private const int TEXTBOX_HEIGHT = 30;
@@ -38,7 +38,7 @@ namespace Hooker
         private Button _saveClassCodeFileButton;
         private Button _generateClassCodeFileButton;
 
-        public Form1()
+        public CodeGeneratorForm()
         {
             InitializeComponent();
 
@@ -56,7 +56,7 @@ namespace Hooker
             _recorderLogFilePathTextBox = new TextBox();
             _recorderLogFilePathTextBox.Location = new Point(10, 40);
             _recorderLogFilePathTextBox.Size = new Size(TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
-            _recorderLogFilePathTextBox.Text = @"..\..\..\HookerRecord\bin\Debug\recorderLog.txt";
+            _recorderLogFilePathTextBox.Text = @"..\..\..\HookerRecord\bin\Debug\recorderLogOptimized.txt";
             this.Controls.Add(_recorderLogFilePathTextBox);
 
             _browseRecorderLogFileButton = new Button();

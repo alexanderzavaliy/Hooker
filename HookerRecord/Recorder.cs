@@ -98,7 +98,7 @@ namespace Hooker
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Exception while deleting " + recorderLogFilePath + " file");
+                MessageBox.Show("Exception while deleting " + recorderLogFilePath + " file" + " ex = " + ex);
             }
         }
 
@@ -112,6 +112,9 @@ namespace Hooker
             { 
 
             }
+            UnSubsribeGlobalEventProvider(globalEventProvider);
+            globalEventProvider.Dispose();
+            _onStopRecordingDelegate();
         }
 
         private void OnProcessToRecordExited(object sender, EventArgs e)
@@ -121,10 +124,9 @@ namespace Hooker
             {
                 UnSubsribeGlobalEventProvider(globalEventProvider);
                 globalEventProvider.Dispose();
-                Console.WriteLine("process killed");
+                _onStopRecordingDelegate();
             }
-            _onStopRecordingDelegate();
-        }
+         }
 
         private void SubsribeGlobalEventProvider(Gma.UserActivityMonitor.GlobalEventProvider provider)
         {

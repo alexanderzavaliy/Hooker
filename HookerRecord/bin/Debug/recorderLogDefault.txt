@@ -1,0 +1,47 @@
+MouseMove 239 333
+MouseMove 239 334
+MouseMove 241 334
+MouseMove 243 335
+MouseMove 246 337
+MouseMove 250 340
+MouseMove 261 345
+MouseMove 281 354
+MouseMove 311 366
+MouseMove 350 377
+MouseMove 382 385
+MouseMove 415 392
+MouseMove 448 400
+MouseMove 470 404
+MouseMove 490 407
+MouseMove 502 413
+MouseMove 508 414
+MouseMove 509 414
+MouseMove 509 415
+MouseMove 509 417
+MouseMove 509 419
+MouseMove 510 419
+MouseMove 510 420
+MouseMove 510 421
+MouseMove 511 421
+MouseMove 511 423
+MouseMove 511 424
+MouseMove 513 424
+MouseMove 513 425
+MouseMove 514 425
+MouseMove 516 426
+MouseMove 519 429
+MouseMove 526 431
+MouseMove 535 434
+MouseMove 544 438
+MouseMove 553 438
+MouseMove 561 440
+MouseMove 568 440
+MouseMove 574 441
+MouseMove 578 443
+MouseMove 581 444
+MouseMove 582 444
+MouseMove 585 444
+KeyDown lwin 
+KeyDown up 
+KeyDown lmenu 
+KeyDown lmenu f4 
