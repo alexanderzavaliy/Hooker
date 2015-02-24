@@ -37,23 +37,15 @@ namespace Hooker
         public void ExecuteRecordedCode()
         { 
                 //GENERATED_CODE_STARTS_AFTER_THIS_LINE		
-                System.Windows.Forms.Cursor.Position = new System.Drawing.Point(712, 508);
+                System.Windows.Forms.Cursor.Position = new System.Drawing.Point(943, 519);
                 System.Threading.Thread.Sleep(500);
-                System.Windows.Forms.SendKeys.SendWait("+hello");
+                System.Windows.Forms.SendKeys.SendWait(",");
                 System.Threading.Thread.Sleep(500);
-                System.Windows.Forms.SendKeys.SendWait("{ENTER}");
+                System.Windows.Forms.SendKeys.SendWait("%");
                 System.Threading.Thread.Sleep(500);
-                System.Windows.Forms.SendKeys.SendWait("{ENTER}");
+                System.Windows.Forms.SendKeys.SendWait("%{F4}");
                 System.Threading.Thread.Sleep(500);
-                System.Windows.Forms.SendKeys.SendWait("{ENTER}");
-                System.Threading.Thread.Sleep(500);
-                System.Windows.Forms.Cursor.Position = new System.Drawing.Point(623, 523);
-                System.Threading.Thread.Sleep(500);
-                System.Windows.Forms.SendKeys.SendWait("abcd");
-                System.Threading.Thread.Sleep(500);
-                System.Windows.Forms.Cursor.Position = new System.Drawing.Point(623, 523);
-                System.Threading.Thread.Sleep(500);
-                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 623, 523, 0, 0);
+                System.Windows.Forms.SendKeys.SendWait("{TAB}");
                 System.Threading.Thread.Sleep(500);
 	}
     }

@@ -1,8 +1,5 @@
-MouseMove 712 508
-KeyDown lshiftkey h e l l o 
-KeyDown return 
-KeyDown return 
-KeyDown return 
-MouseMove 623 523
-KeyDown a b c d 
-MouseDown 623 523 Left
+MouseMove 943 519
+KeyDown oemcomma oemperiod 
+KeyDown lmenu 
+KeyDown lmenu f4 
+KeyDown tab 

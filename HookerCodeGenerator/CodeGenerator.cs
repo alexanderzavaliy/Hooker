@@ -114,6 +114,7 @@ namespace Hooker
             {"tab", "{TAB}"},
             {"", ""},
             {"oemcomma", ","},
+            {"oemperiod", "."},
             {"oemquestion", "{/}"},
             {"oemtilde", "{~}"},
             {"oemopenbrackets", "{[}"},
