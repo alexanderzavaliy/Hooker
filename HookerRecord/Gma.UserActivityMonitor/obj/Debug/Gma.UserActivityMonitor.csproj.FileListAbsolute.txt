@@ -14,3 +14,9 @@ h:\Automation\GUI\Hooker\HookerSolution\Gma.UserActivityMonitor\bin\Debug\Gma.Us
 h:\Automation\GUI\Hooker\HookerSolution\Gma.UserActivityMonitor\obj\Debug\Gma.UserActivityMonitor.csprojResolveAssemblyReference.cache
 h:\Automation\GUI\Hooker\HookerSolution\Gma.UserActivityMonitor\obj\Debug\Gma.UserActivityMonitor.dll
 h:\Automation\GUI\Hooker\HookerSolution\Gma.UserActivityMonitor\obj\Debug\Gma.UserActivityMonitor.pdb
+E:\GitRepositories\Hooker\HookerRecord\Gma.UserActivityMonitor\bin\Debug\Gma.xml
+E:\GitRepositories\Hooker\HookerRecord\Gma.UserActivityMonitor\bin\Debug\Gma.UserActivityMonitor.dll
+E:\GitRepositories\Hooker\HookerRecord\Gma.UserActivityMonitor\bin\Debug\Gma.UserActivityMonitor.pdb
+E:\GitRepositories\Hooker\HookerRecord\Gma.UserActivityMonitor\obj\Debug\Gma.UserActivityMonitor.csprojResolveAssemblyReference.cache
+E:\GitRepositories\Hooker\HookerRecord\Gma.UserActivityMonitor\obj\Debug\Gma.UserActivityMonitor.dll
+E:\GitRepositories\Hooker\HookerRecord\Gma.UserActivityMonitor\obj\Debug\Gma.UserActivityMonitor.pdb

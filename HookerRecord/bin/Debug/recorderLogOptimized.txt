@@ -1,4 +1,4 @@
-MouseMove 585 444
-KeyDown lwin 
-KeyDown up 
-KeyDown lmenu 
+MouseMove 470 288
+MouseDown 470 288 Left
+MouseMove 470 283
+KeyDown apps 179 228

@@ -45,7 +45,6 @@ namespace Hooker
             {"d9", "9" },
             {"d0", "0" },
             {"back", "{BACKSPACE}" },
-            {"delete", "{DELETE}" },
             {"return", "{ENTER}" },
             {"lshiftkey", "+" },
             {"rshiftkey", "+" },
@@ -54,6 +53,16 @@ namespace Hooker
             {"lmenu", "%" },
             {"rmenu", "%" },
             //{"lwin", "^{ESC}"}, //doesn't work directly, but may be overcomed using native windows calls, or third-party libs solutions based on native windows calls. Not implemented currently
+            {"printscreen", "{PRTSC}"},
+            {"scroll", "{SCROLLLOCK}"},
+            {"pause", "{BREAK}"},
+            {"insert", "{INSERT}"},
+            {"home", "{HOME}"},
+            {"pageup", "{PGUP}"},
+            {"delete", "{DELETE}"},
+            {"end", "{END}"},
+            {"next", "{PGDN}"},
+            {"apps", "+{F10}"},
 
             {"a", "a" },
             {"b", "b" },
@@ -124,7 +133,7 @@ namespace Hooker
             {"lmenu", "" },
             {"rmenu", "" },
             //{"lwin", "^{ESC}"}, //doesn't work directly, but may be overcomed using native windows calls, or third-party libs solutions based on native windows calls. Not implemented currently
-
+            {"apps", "+{F10}"},
  
             {"escape", "" },
             {"space", "" },

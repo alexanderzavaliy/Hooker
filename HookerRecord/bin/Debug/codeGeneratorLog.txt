@@ -1,8 +1,10 @@
-System.Windows.Forms.Cursor.Position = new System.Drawing.Point(585, 444);
+System.Windows.Forms.Cursor.Position = new System.Drawing.Point(470, 288);
 System.Threading.Thread.Sleep(500);
-System.Windows.Forms.SendKeys.SendWait("^{ESC}");
+System.Windows.Forms.Cursor.Position = new System.Drawing.Point(470, 288);
 System.Threading.Thread.Sleep(500);
-System.Windows.Forms.SendKeys.SendWait("{UP}");
+mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 470, 288, 0, 0);
 System.Threading.Thread.Sleep(500);
-System.Windows.Forms.SendKeys.SendWait("%");
+System.Windows.Forms.Cursor.Position = new System.Drawing.Point(470, 283);
+System.Threading.Thread.Sleep(500);
+System.Windows.Forms.SendKeys.SendWait("");
 System.Threading.Thread.Sleep(500);
